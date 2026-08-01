@@ -42,6 +42,8 @@ The upstream model weights are **not stored in this repository**. They are downl
 Python 3.10–3.12 is recommended.
 
 ```powershell
+git clone https://github.com/Gab1604/Vita-CloudDetector.git
+Set-Location Vita-CloudDetector
 py -3.12 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
@@ -115,6 +117,7 @@ Each run creates:
 - `cloud_classes.tif` — classes `0/1/2/3`, with `255` for no-data;
 - `unusable_mask.tif` — binary mask, `1 = cloud/thin cloud/shadow`;
 - `clear_mask.tif` — binary mask, `1 = clear and valid`;
+- `valid_mask.tif` — binary valid-footprint mask;
 - `summary.json` — percentages, configuration, runtime and decision;
 - `preview.png` — visual overlay when preview bands are available.
 
@@ -143,7 +146,7 @@ multispectral image
         ↓
 ViTA Cloud Detector
         ↓
-cloud classes + unusable mask + clear mask
+cloud classes + unusable mask + clear mask + valid mask
         ↓
 if unusable >= threshold: discard
 else: crop detector
@@ -152,6 +155,8 @@ crop percentage computed only on clear, valid pixels
 ```
 
 Cloud pixels should remain excluded through an explicit mask rather than being interpreted as ordinary black image content.
+
+The full interface is documented in [`docs/CROP_DETECTOR_INTEGRATION.md`](docs/CROP_DETECTOR_INTEGRATION.md).
 
 ## Balkan-1 validation summary
 
