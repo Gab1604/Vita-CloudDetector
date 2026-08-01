@@ -76,7 +76,7 @@ def _print_result(summary: dict) -> None:
         "class_fractions": statistics["class_fractions"],
         "valid_pixels": statistics["valid_pixels"],
         "inference_seconds": summary["inference_seconds"],
-        "summary_path": summary["outputs"],
+        "outputs": summary["outputs"],
     }
     print(json.dumps(compact, indent=2))
 
