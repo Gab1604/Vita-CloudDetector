@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Model caches and generated data
+.cache/
+models/
+weights/
+data/
+outputs/
+reports/
+*.tif
+*.tiff
+*.jp2
+*.SAFE/
+*.zip
+
+# Keep directory placeholders when needed
+!.gitkeep
