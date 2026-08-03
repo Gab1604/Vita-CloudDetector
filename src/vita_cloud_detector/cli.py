@@ -7,6 +7,7 @@ from pathlib import Path
 from .balkan1 import run_balkan1
 from .config import DetectorConfig
 from .sentinel2 import run_sentinel2
+from .sentinel2_geotiff import run_sentinel2_geotiff
 
 
 def _add_common_arguments(parser: argparse.ArgumentParser) -> None:
@@ -100,6 +101,16 @@ def build_parser() -> argparse.ArgumentParser:
     sentinel = subparsers.add_parser("sentinel2", help="Process a Sentinel-2 SAFE product")
     _add_common_arguments(sentinel)
 
+    sentinel_geotiff = subparsers.add_parser(
+        "sentinel2-geotiff",
+        help="Process a Sentinel-2 multiband GeoTIFF exported from Google Earth Engine",
+    )
+    _add_common_arguments(sentinel_geotiff)
+    sentinel_geotiff.add_argument("--red-band", type=int, default=1)
+    sentinel_geotiff.add_argument("--green-band", type=int, default=2)
+    sentinel_geotiff.add_argument("--nir-band", type=int, default=3)
+    sentinel_geotiff.add_argument("--blue-band", type=int, default=4)
+
     return parser
 
 
@@ -120,6 +131,16 @@ def main() -> None:
             input_path=args.input,
             output_dir=args.output_dir,
             config=config,
+        )
+    elif args.command == "sentinel2-geotiff":
+        result = run_sentinel2_geotiff(
+            input_path=args.input,
+            output_dir=args.output_dir,
+            config=config,
+            red_band=args.red_band,
+            green_band=args.green_band,
+            nir_band=args.nir_band,
+            blue_band=args.blue_band,
         )
     else:
         parser.error(f"Unsupported command: {args.command}")
